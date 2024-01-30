@@ -16,11 +16,6 @@
 
                         {{ __('You are logged in!') }}
                         <p>Name: {{ $user->name }}</p>
-                        <p>Skills:
-                            @foreach ($user->skills as $skill)
-                                {{ $skill->name }}
-                            @endforeach
-                        </p>
                     </div>
                 </div>
             </div>

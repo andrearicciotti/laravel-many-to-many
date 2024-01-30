@@ -7,7 +7,10 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Skill;
+use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -19,7 +22,10 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
+        $technologies = Technology::all();
+        $skills = Skill::all();
+        $user = Auth::user();
+        return view('admin.projects.index', compact('projects', 'technologies', 'skills', 'user'));
     }
 
     /**
@@ -59,9 +65,10 @@ class ProjectController extends Controller
      * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Project $project, Technology $technology, Skill $skill)
     {
-        return view('admin.projects.show', compact('project'));
+        $user = Auth::user();
+        return view('admin.projects.show', compact('project', 'technology', 'skill', 'user'));
     }
 
     /**
